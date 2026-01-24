@@ -1,8 +1,9 @@
 const mongoose=require("mongoose");
+const { URL } = require("../../Secret");
 
 const  connectDB=async()=>{
     try {
-        await mongoose.connect("mongodb+srv://srasinghmanraj:MynameisKhan1!@moon.sff0jqt.mongodb.net/Auralis");
+        await mongoose.connect(URL);
     } catch (error) {
        console.error("MongoDb Connection failed");
        throw error;

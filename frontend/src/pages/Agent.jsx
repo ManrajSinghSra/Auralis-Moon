@@ -44,7 +44,7 @@ const Agent = () => {
             <Input className="max-w-[50%] mt-4" placeholder="Search Agent"/>
         </div>
         <AgentDialog open={open} setOpen={setOpen}/>
-                 {/* h-140 */}
+        
         <div className='mt-10 h-140  bg-blue-300 rounded-3xl pt-3'> 
              {loading?<LoadingAgent />: (<AgentsList open={open} setOpen={setOpen} agents={agents.data}/>)}
         </div>
