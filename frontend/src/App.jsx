@@ -6,6 +6,8 @@ import Meeting from "./pages/Meeting";
 import Agent from "./pages/Agent";
 
  import { ToastContainer } from 'react-toastify';
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 const App = () => {
 
@@ -34,10 +36,13 @@ const App = () => {
   return (
 
     <div>
+      <Provider store={store}>
+
       <ToastContainer />
       <RouterProvider router={router}>
 
       </RouterProvider>
+      </Provider>
     </div>
   )
 }

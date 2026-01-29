@@ -1,5 +1,5 @@
 import { createAvatar } from '@dicebear/core';
-import { botttsNeutral } from '@dicebear/collection';
+import { botttsNeutral,adventurer } from '@dicebear/collection';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
@@ -10,7 +10,11 @@ export const GenerateAvatar=({seed,className,variant})=>{
 
     if(variant==="botttsNeutral"){
       avatar=createAvatar(botttsNeutral,{seed});
-    }else{
+    }
+   else if(variant==="adventurer"){
+      avatar=createAvatar(adventurer,{seed});
+    }
+    else{
         avatar=createAvatar(initials,{seed,fontWeight:500,fontSize:42})
     }
 

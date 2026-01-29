@@ -39,7 +39,7 @@ const User = ({user}) => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <SidebarMenuButton className="border border-foreground w-full p-7 flex">
-                    <GenerateAvatar seed={data?.name} variant="botttsNeutral" />
+                    <GenerateAvatar seed={data?.name} variant="adventurer" />
                     <h1>{data?.name}</h1>
                     <ChevronUp className="ml-auto" />
                 </SidebarMenuButton>
@@ -47,7 +47,7 @@ const User = ({user}) => {
 
             <DropdownMenuContent side="top" className="w-55">
                 <div className="flex gap-4 p-2">
-                    <GenerateAvatar seed={data?.name} variant="botttsNeutral" />
+                    <GenerateAvatar seed={data?.name} variant="adventurer" />
                     <div>
                         <h1>{data?.name}</h1>
                         <h1 className="text-gray-500">
@@ -58,8 +58,8 @@ const User = ({user}) => {
 
                 <DropdownMenuSeparator />
 
-                <DropdownMenuItem>
-                    <div className="flex gap-5" onClick={handleLogout}>
+                <DropdownMenuItem onClick={handleLogout}>
+                    <div className="flex gap-5" >
                         <FiLogOut />
                         <span>Log out</span>
                     </div>

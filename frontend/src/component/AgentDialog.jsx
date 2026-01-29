@@ -12,12 +12,20 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { URL } from "@/CONST"
+import { URL } from "@/CONST" 
 import { useState } from "react"
 import { toast } from "react-toastify"
-export const AgentDialog = ({ open, setOpen }) => {
+
+
+//redux
+import { setOnOff } from "@/store/slices/agent"
+import { useDispatch } from "react-redux"
+
+export const AgentDialog = ({ open }) => {
 
     const [agent, setAgent] = useState({ name: "", instruction: "" })
+
+    const dispath=useDispatch();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -36,7 +44,8 @@ export const AgentDialog = ({ open, setOpen }) => {
 
         if(status==200){
             toast.success("Created");
-            setOpen(false)
+            dispath(setOnOff())
+
         }
         else if(status==500){
             toast.error(data.error);
@@ -44,7 +53,7 @@ export const AgentDialog = ({ open, setOpen }) => {
 
     }
     return (
-        <Dialog open={open} onOpenChange={setOpen} >
+        <Dialog open={open} onOpenChange={()=>dispath(setOnOff())} >
 
             <DialogContent className="sm:max-w-[425px]">
 
@@ -76,7 +85,7 @@ export const AgentDialog = ({ open, setOpen }) => {
 
                     <DialogFooter >
                         <DialogClose asChild>
-                            <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
+                            <Button variant="outline" onClick={() => dispath(setOnOff())}>Cancel</Button>
                         </DialogClose>
                         <Button type="submit">Save</Button>
                     </DialogFooter>
