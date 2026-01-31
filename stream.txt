@@ -1,0 +1,27 @@
+step 1 - npm install @stream-io/video-react-sdk 
+
+hkvpcd43vhsd8c3nyrvjbuzcu6aa53hd5yqh7racw8xztees97amt5a6n9tmxgac
+
+
+step-2 
+  install it on backend 
+  npm install @stream-io/node-sdk
+  then token api there  --
+
+        const  { StreamClient }= require ("@stream-io/node-sdk");
+        const { streamaApiKey, streamSecret } = require("../../Secret")
+        const serverClient = new StreamClient(streamaApiKey, streamSecret);
+
+        app.post("/generate-token", (req, res) => {
+        const { userId } = req.body;
+        const token = serverClient.createToken(userId)
+        res.json({ token });
+        });
+
+    it gives me a token which will be used in frontend    
+
+
+    tthen ui 
+    remember to add the import css
+
+

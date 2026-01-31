@@ -1,3 +1,5 @@
+import "@stream-io/video-react-sdk/dist/css/styles.css";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Login from "./pages/Login";
@@ -8,6 +10,9 @@ import Agent from "./pages/Agent";
  import { ToastContainer } from 'react-toastify';
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import MeetingPage from "./pages/MeetingPage";
+import {Room} from "./pages/Room";
+import { RommLobby } from "./component/RommLobby/RoomLobby";
 
 const App = () => {
 
@@ -19,7 +24,13 @@ const App = () => {
       children: [
         {
           path: "meeting",
-          element: <Meeting />
+          element: <Meeting />,
+          children:[
+            {
+              path:"meetingRoom",
+              element:<MeetingPage/>
+            }
+          ]
         },
         {
           path:"agents",
@@ -30,6 +41,14 @@ const App = () => {
     {
       path: "/login",
       element: <div><Login /></div>
+    },
+     
+    { element:<Room/>,
+      path:"room"
+    },
+    {
+      element:<RommLobby/>,
+      path:"roomLobby"
     }
   ]);
 

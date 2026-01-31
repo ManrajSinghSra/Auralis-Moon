@@ -15,13 +15,14 @@ const meetingSchema=mongoose.Schema({
         ref:"Agent"
     },
     status:{
-        default:"Upcoming",
+        type:String,
+        default:"upcoming",
         enum:["upcoming","active","completed","processing","cancelled"]
     },
 
-    summary:      { type:String },
-    transcriptUrl:{ type:String },
-    recordingUrl: { type:String },
+    summary:      { type:Date },
+    transcriptUrl:{ type:Date },
+    recordingUrl: { type:Date },
     
 
 },{timestamps:true})

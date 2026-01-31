@@ -19,6 +19,6 @@ const agentSchema=mongoose.Schema({
 
 },{timestamps:true})
 
-const Agent=mongoose.model("agent",agentSchema);
+const Agent=mongoose.model("Agent",agentSchema);
 
 module.exports={Agent};

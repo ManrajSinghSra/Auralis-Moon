@@ -7,6 +7,8 @@ import { Alert, AlertTitle } from "@/components/ui/alert"
 import { OctagonAlertIcon } from "lucide-react" 
 import { useNavigate } from "react-router-dom"
 import { URL } from "@/CONST"
+import { useDispatch } from "react-redux"
+import { addUser } from "@/store/slices/user"
 
 const Login = () => {
 
@@ -15,6 +17,7 @@ const Login = () => {
     const [error ,setError]=useState({error:false,text:""});
 
     const navigate = useNavigate();
+    const dispatch=useDispatch()
 
 
     const handleSubmit=async(e)=>{
@@ -33,6 +36,10 @@ const Login = () => {
         })
         const data=await res.json()
         if(res.status==200){
+            console.log("data",data.data);
+            
+            dispatch(addUser(data.data._id))
+
                navigate("/")
         }
         else if(res.status==400){

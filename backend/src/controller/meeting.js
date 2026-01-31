@@ -2,20 +2,39 @@ const { Meeting } = require("../model/Meeting");
 
 const addMeeting=async(req,res)=>{
 
-  try {
-      const {title}=req.body;
-      const user=req.body
-
-      if(!meetingName){
-            res.status(404).json({error:"Name must be Provided of meeting"});
+  try { 
+      const {title,agentId}=req.body;
+      const user=req.user  
+      if(!title || !agentId){
+           return res.status(404).json({error:"Details must be provided"});
         }
 
-    const newMeeting=new Meeting({title,userId:user._id,agentId})
+    const newMeeting=new Meeting({title,userId:user._id,agentId,agentId})
+
+    const isExists=await Meeting.findOne({title,agentId,userId:user._id});
+
+    if(isExists){
+      throw new Error("Meeting already exists.");
+    }
 
     await newMeeting.save()
+
+    return res.status(200).json({data:"Created"})
+    
   } catch (error) {
-    res.json({error:error.message || "Something went wrong  in meeting Creation"})
+    res.status(400).json({error:error.message || "Something went wrong  in meeting Creation"})
   }
 }
 
-module.exports={addMeeting}
+const getMeeting=async(req,res)=>{
+  try {
+    const user=req.user;
+    
+    const data=await Meeting.find({userId:user._id}).populate("agentId")
+    return res.json({data});
+  } catch (error) {
+    res.json({error:error.message || "Something went wrong"});
+  }
+}
+
+module.exports={addMeeting,getMeeting}

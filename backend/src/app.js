@@ -4,6 +4,8 @@ const cors=require("cors");
 
 const { userRouter } = require("./router/user");
 const { agentRouter } = require("./router/agent");
+const { meetingRouter } = require("./router/meeting");
+const { streamRouter } = require("./router/streamToken");
 
 const app=express();
 
@@ -14,5 +16,8 @@ app.use(express.json());
 
 app.use("/user",userRouter)
 app.use("/agent",agentRouter);
+app.use("/meeting",meetingRouter)
+
+app.use("/stream",streamRouter)
 
 module.exports={app}

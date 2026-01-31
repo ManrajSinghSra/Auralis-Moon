@@ -1,6 +1,15 @@
 import {configureStore} from "@reduxjs/toolkit"
 
-import agentSlice from './slices/agent' 
+import agentSlice from './slices/agent'
+import meetingNameSlice from './slices/meetingName.js'
+import userSlice from "./slices/user"
+ 
 
-export const store=configureStore({reducer:{agent:agentSlice}})
+
+
+export const store=configureStore({reducer:{
+    agent:agentSlice,
+    meetingName:meetingNameSlice,
+    user:userSlice
+}})
  

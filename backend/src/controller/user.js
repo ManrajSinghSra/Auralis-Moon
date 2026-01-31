@@ -58,7 +58,7 @@ const login=async(req,res)=>{
         res.cookie("token",token,{
             expires:new Date(Date.now()+1*3600000)
         })
-        res.status(200).send({success:true});
+        res.status(200).send({success:true,data:user});
         
     } catch (error) { 
         res.status(400).send({error:error.message})

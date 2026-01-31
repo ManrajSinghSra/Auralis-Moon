@@ -1,48 +1,66 @@
-import { Button } from "@/components/ui/button"
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from "@/components/ui/dialog"
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { AgentDialog } from "./AgentDialog"
-
-import { useDispatch, useSelector } from "react-redux"
-import { setOnOff } from "@/store/slices/agent" 
-import { useEffect, useState } from "react"
-import { URL } from "@/CONST"
-import { GenerateAvatar } from "@/Avatar/Avatar"
+import {useDispatch,
+       useSelector,
+       setOnOff,
+       useEffect, 
+       useState,
+       URL,
+       GenerateAvatar,
+       Input,
+       Label, 
+       Select,
+       SelectContent,
+       SelectGroup,
+       SelectItem,
+       SelectLabel,
+       SelectTrigger,
+       SelectValue,  
+       Dialog,
+       DialogClose,
+       DialogContent,
+       DialogDescription,
+       DialogFooter,
+       DialogHeader,
+       DialogTitle,
+       Button} from "../imports/MeetingDialog"
 
 export function MeetingDialog({ open, setOpen }) {
 
   const store=useSelector((state)=>state.agent.open)
   const dispath=useDispatch()
 
-  const [newMeeting,setNewMeeting]=useState({title:"THis is a Sci meeting",agent:""})
-
+  const [newMeeting,setNewMeeting]=useState({title:"THis is a Sci meeting",agentId:""})
   const [agents,setAgents]=useState([]);
  
     const handleAgentOpen=()=>{ 
       setOpen(false)
       dispath(setOnOff());
     }
-    const handleFormSubmit=(e)=>{
+    const handleFormSubmit=async(e)=>{
       e.preventDefault()
       console.log(newMeeting);
+      const res=await fetch(`${URL}/meeting/add`,{
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({title:newMeeting.title,agentId:newMeeting.agentId}),
+        credentials:"include",
+      })
+      const status=res.status;
+      if(status==200){
+        console.log("here");
+        
+        
+        setOpen((pre)=>!pre)
+      }
+      else{
+        const data=await res.json()
+        console.log(data);
+      }
+      console.log(status);
+      console.log(await res.json());
+
     }
 
     useEffect(()=>{
@@ -55,7 +73,6 @@ export function MeetingDialog({ open, setOpen }) {
     },[])
 
 
-
   return (<>
     <Dialog open={open} onOpenChange={setOpen}>
       <form >
@@ -63,7 +80,7 @@ export function MeetingDialog({ open, setOpen }) {
           <DialogHeader>
             <DialogTitle>New Meeting</DialogTitle>
             <DialogDescription>
-              Make a new Meeting.
+              Create a new Meeting.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4">
@@ -74,7 +91,7 @@ export function MeetingDialog({ open, setOpen }) {
             </div>
 
             <div className="grid gap-3">
-              <Select onValueChange={(value)=>setNewMeeting({...newMeeting,agent:value})}>
+              <Select onValueChange={(value)=>setNewMeeting({...newMeeting,agentId:value})}>
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select An Agent" />
                 </SelectTrigger>
