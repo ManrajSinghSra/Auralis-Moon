@@ -1,11 +1,10 @@
 import { createAvatar } from '@dicebear/core';
-import { botttsNeutral,adventurer } from '@dicebear/collection';
+import { botttsNeutral,adventurer, initials } from '@dicebear/collection';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 
 export const GenerateAvatar=({seed,className,variant})=>{
-
     let avatar;
 
     if(variant==="botttsNeutral"){
@@ -24,5 +23,19 @@ export const GenerateAvatar=({seed,className,variant})=>{
                 {/* <AvatarFallback>{seed.charAt(0).toUpperCase()}</AvatarFallback> */}
         </Avatar>
     </>
+}
+
+export const GenerateImage=(seed,variant)=>{
+   let avatar;
+
+    if(variant==="botttsNeutral"){
+      avatar=createAvatar(botttsNeutral,{seed});
+    }
+   else if(variant==="adventurer"){
+      avatar=createAvatar(adventurer,{seed});
+    }
+   
+    return avatar.toDataUri();
+
 
 }

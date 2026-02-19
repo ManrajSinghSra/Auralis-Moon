@@ -8,7 +8,8 @@ import { OctagonAlertIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { URL } from "@/CONST"
 import { useDispatch } from "react-redux"
-import { addUser } from "@/store/slices/user"
+import { addUser,setName } from "@/store/slices/user"
+// import { setMeetingName } from "@/store/slices/meetingName"
 
 const Login = () => {
 
@@ -39,6 +40,10 @@ const Login = () => {
             console.log("data",data.data);
             
             dispatch(addUser(data.data._id))
+
+            console.log(data.data.name);
+            
+            dispatch(setName(data.data.name))
 
                navigate("/")
         }

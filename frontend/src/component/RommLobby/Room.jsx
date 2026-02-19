@@ -11,7 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { URL } from "@/CONST";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";  
 
 export const Room = () => {
 
@@ -22,21 +22,22 @@ export const Room = () => {
   const [call, setCall] = useState(null); 
   const nav=useNavigate() 
 
+  const avatarImage = `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.name}`;
+
+
   const CallWatcher = ({ nav }) => {
+
   const { useCallCallingState } = useCallStateHooks();
   const callingState = useCallCallingState();
 
   useEffect(() => {
     if (callingState === "left") {
-      nav(-1);
+      nav("/meeting/meetingRoom");
     }
   }, [callingState]);
 
   return null;
 };
-
- 
-
   useEffect(() => {
   if (!user?.userId) return;
 
@@ -51,14 +52,15 @@ export const Room = () => {
 
       const data = await res.json();
       const fetchedToken = data.token;
-       
-      
 
       if (!fetchedToken) return;
 
       const newClient = new StreamVideoClient({
         apiKey,
-        user: { id: user.userId },
+        user: { 
+            id: user.userId,
+            image:avatarImage
+              },
         token: fetchedToken,
       });
 
@@ -85,12 +87,11 @@ export const Room = () => {
       <StreamCall call={call}>
 
         {/* theme */}
-         <StreamTheme>
-          <CallWatcher nav={nav} />
-            <SpeakerLayout />
-            <CallControls />
-            
-        </StreamTheme>
+          <StreamTheme classID="bg-gray-900">
+                <CallWatcher nav={nav} />
+                <SpeakerLayout />
+                <CallControls />
+          </StreamTheme>
 
         
       </StreamCall>

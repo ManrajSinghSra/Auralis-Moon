@@ -30,6 +30,7 @@ const DashBoard = ({user}) => {
         }
     ]
     return (
+        <>
 
         <Sidebar>
 
@@ -75,6 +76,7 @@ const DashBoard = ({user}) => {
             </SidebarFooter>
 
         </Sidebar>
+        </>
     )
 }
 

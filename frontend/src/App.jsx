@@ -11,7 +11,7 @@ import Agent from "./pages/Agent";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import MeetingPage from "./pages/MeetingPage";
-import {Room} from "./pages/Room";
+import {Room} from "./component/RommLobby/Room";
 import { RommLobby } from "./component/RommLobby/RoomLobby";
 
 const App = () => {

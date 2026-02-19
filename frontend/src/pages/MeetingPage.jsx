@@ -19,7 +19,7 @@ const MeetingPage = () => {
         <h1 className='text-2xl text-gray-500'>Once you started the meeting, a summary will appear here.</h1>
 
         <div className='mt-10 flex gap-3'>
-          <Button> <Ban /> Cancel Meeting</Button>
+          <Button onClick={()=>nav("/meeting")}> <Ban /> Cancel Meeting</Button>
           <Button className="bg-blue-900" onClick={openMeeting} > <Loader className='animate-spin' />Start Meeting</Button>
         </div>
       </div>
