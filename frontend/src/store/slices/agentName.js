@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState={
-    agentName:""
+    agentName:"",
+    agentId:""
 }
 const agentName=createSlice({
     name:"agentName",
@@ -10,11 +11,14 @@ const agentName=createSlice({
     reducers:{
         setAgentName(state,action){
             state.agentName=action.payload
+        },
+        setAgentId(state,action){
+            state.agentId=action.payload
         }
     }
 })
 
 export default agentName.reducer
 
-export const {setAgentName}=agentName.actions
+export const {setAgentName,setAgentId}=agentName.actions
 

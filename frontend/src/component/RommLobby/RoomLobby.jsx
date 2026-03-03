@@ -7,7 +7,8 @@ export const RommLobby = () => {
         const meetId=useSelector((store)=>store.meetingName.meetId);
         const userName=useSelector((store)=>store.user.name)
 
-        console.log(userName);
+        const agentName=useSelector((store)=>store.agentName);
+ 
          const nav = useNavigate();
 
   return (
@@ -34,7 +35,10 @@ export const RommLobby = () => {
           Cancel Meeting
         </button>
         <button
-          onClick={() => nav(`/room`)}
+          onClick={() => {
+
+              nav(`/room`)
+            }}
           className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200"
         >
           Join Meeting

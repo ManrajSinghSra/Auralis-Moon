@@ -11,19 +11,20 @@ import {
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { URL } from "@/CONST";
-import { useNavigate } from "react-router-dom";  
+import { useNavigate } from "react-router-dom";   
 
 export const Room = () => {
 
-  const user = useSelector((state) => state.user);
-  console.log("USER",user);
-  
+  const user = useSelector((state) => state.user); 
+  const agentId=useSelector((state)=>state.agentName.agentId)  
+  const meetingId=useSelector((state)=>state.meetingName.meetId)
+    
+   
   const [client, setClient] = useState(null);
   const [call, setCall] = useState(null); 
   const nav=useNavigate() 
 
   const avatarImage = `https://api.dicebear.com/7.x/adventurer/svg?seed=${user.name}`;
-
 
   const CallWatcher = ({ nav }) => {
 
@@ -45,15 +46,24 @@ export const Room = () => {
 
   const initStream = async () => {
     try {
+
+       
       const res = await fetch(`${URL}/stream/generate-token`, {
         credentials: "include",
-        method:"POST"
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({agentId,callId:meetingId})
       });
 
       const data = await res.json();
-      const fetchedToken = data.token;
+      const fetchedToken = data.token; 
+
 
       if (!fetchedToken) return;
+
+      //where we make a clint and join 
 
       const newClient = new StreamVideoClient({
         apiKey,
@@ -64,8 +74,9 @@ export const Room = () => {
         token: fetchedToken,
       });
 
-      const newCall = newClient.call("default", "my-first-call");
+      const newCall = newClient.call("default", meetingId);
       await newCall.join({ create: true });
+ 
 
       setClient(newClient);
       setCall(newCall);
