@@ -77,7 +77,6 @@ export const Room = () => {
       const newCall = newClient.call("default", meetingId);
       await newCall.join({ create: true });
  
-
       setClient(newClient);
       setCall(newCall);
 
@@ -96,8 +95,7 @@ export const Room = () => {
   return (
     <StreamVideo client={client}>
       <StreamCall call={call}>
-
-        {/* theme */}
+ 
           <StreamTheme classID="bg-gray-900">
                 <CallWatcher nav={nav} />
                 <SpeakerLayout />

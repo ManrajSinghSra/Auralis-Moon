@@ -7,8 +7,4 @@ loading meeting component
 meeting status -- not done yet 
 
 
- 
- 
- curl -X POST "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyD10RS96nKTnZuGQIbapGxjbaB1jjEJ8OY" \
-  -H "Content-Type: application/json" \
-  -d "{\"contents\":[{\"parts\":[{\"text\":\"Hello\"}]}]}"
+  
