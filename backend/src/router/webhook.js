@@ -1,5 +1,5 @@
 require("dotenv").config()
-const { streamApiKey, streamSecret } = require("../../Secret");
+const { streamApiKey, streamSecret,OPENAI_API_KEY } = require("../../Secret");
 
 const {StreamClient }= require ("@stream-io/node-sdk"); 
 const serverClient = new StreamClient(streamApiKey, streamSecret);
@@ -54,7 +54,7 @@ webhookRouter.post(
 
           const realtimeClient = await serverClient.video.connectOpenAi({
             call,
-            openAiApiKey: process.env.OPENAI_API_KEY,
+            openAiApiKey:OPENAI_API_KEY,
             agentUserId: agentId,
           });
  
