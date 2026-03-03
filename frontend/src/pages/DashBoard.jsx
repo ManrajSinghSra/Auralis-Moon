@@ -32,9 +32,9 @@ const DashBoard = ({user}) => {
     return (
         <>
 
-        <Sidebar>
+        <Sidebar  >
 
-            <SidebarHeader>
+            <SidebarHeader className="bg-gray-300" >
                 <div className="flex gap-4">
                     <img src="../../logo.svg" alt="" className="w-10 h-10" />
                     <h1 className="text-3xl font-extrabold">Auralis</h1>
@@ -43,7 +43,7 @@ const DashBoard = ({user}) => {
 
             <SidebarSeparator />
 
-            <SidebarContent>
+            <SidebarContent className="bg-gradient-to-b from-gray-300 to-white ">
 
                 <SidebarGroup>
                     <SidebarGroupContent>
@@ -54,7 +54,7 @@ const DashBoard = ({user}) => {
                                     <SidebarMenuButton asChild>
                                         <Link to={item.url}>
                                             <item.icon />
-                                            <span>{item.title}</span>
+                                            <span className="text-[1.4rem] font-medium">{item.title}</span>
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
@@ -67,7 +67,7 @@ const DashBoard = ({user}) => {
 
             </SidebarContent>
 
-            <SidebarFooter>
+            <SidebarFooter className="bg-gray-100">
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <User user={user} />

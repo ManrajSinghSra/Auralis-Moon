@@ -23,7 +23,7 @@ const MeetingList = ({meeting}) => {
  
          
         return(<>
-                <div key={curr.title} className="bg-amber-50 m-2 p-5 rounded-2xl flex justify-between">
+                <div key={curr.title} className="bg-blue-300 m-2 p-5 rounded-2xl flex justify-between">
                    <div>
                      <h1 className='text-3xl font-extrabold' onClick={()=>{                      
                       dispatch(setAgentName(agent))
@@ -34,8 +34,7 @@ const MeetingList = ({meeting}) => {
                       nav("/meeting/meetingRoom")}
                       }>{curr.title}</h1>
 
-                     <div className='flex'>
-                      {/* <h1 className='text-2xl'>{agent}</h1> */}
+                     <div className='flex'> 
                       <CornerDownRight />
                       <GenerateAvatar seed={agent} variant="botttsNeutral"/>
                      </div>

@@ -45,9 +45,10 @@ const User = ({user}) => {
                 </SidebarMenuButton>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent side="top" className="w-55">
+            <DropdownMenuContent side="top" className="w-60">
+                <GenerateAvatar seed={data?.name} variant="adventurer" className="h-30 w-30 ml-8" />
                 <div className="flex gap-4 p-2">
-                    <GenerateAvatar seed={data?.name} variant="adventurer" />
+                    
                     <div>
                         <h1>{data?.name}</h1>
                         <h1 className="text-gray-500">

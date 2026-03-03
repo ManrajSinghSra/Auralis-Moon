@@ -8,8 +8,7 @@ import { OctagonAlertIcon } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import { URL } from "@/CONST"
 import { useDispatch } from "react-redux"
-import { addUser,setName } from "@/store/slices/user"
-// import { setMeetingName } from "@/store/slices/meetingName"
+import { addUser,setName } from "@/store/slices/user" 
 
 const Login = () => {
 
@@ -52,20 +51,19 @@ const Login = () => {
             setError({error:true,text:data.error})
         } 
     
-    }
-
-    
+    }    
 
     return (
+        <div className="bg-gray-200 h-screen">
 
-        <div className="flex justify-center items-center mt-50">
-            <Card className="w-100 p-10 flex flex-col items-center justify-between">
+        <div className="flex justify-center items-center pt-50  bg-gray-200">
+            <Card className="w-100 p-10 flex flex-col items-center justify-between rounded-0">
                 <CardContent className="flex flex-col gap-6">
 
 
                     <div className="h-[3rem] w-[20rem] flex justify-center items-center flex-col">
                         <img src="./logo.svg" alt="logo" />
-                        <h1 className="text-3xl">Auralis</h1>
+                        <h1 className="text-4xl font-bold">Auralis</h1>
                     </div>
 
                     <form onSubmit={handleSubmit} className="flex flex-col gap-10">
@@ -76,7 +74,7 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <Button className="w-full" type="submit">Submit</Button>
+                            <Button className="w-full text-[1.3rem] bg-[#3d4e57] " type="submit">Submit</Button>
                         </div>
 
                     </form>
@@ -106,6 +104,8 @@ const Login = () => {
 
                 </CardContent>
             </Card>
+
+        </div>
         </div>
     )
 }

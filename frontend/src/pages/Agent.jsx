@@ -48,7 +48,7 @@ const Agent = () => {
         </div>
         <AgentDialog open={open} />
         
-        <div className='mt-10 h-140  bg-blue-300 rounded-3xl pt-3'> 
+        <div className='mt-10 h-150  bg-blue-300  py-6'> 
              {loading?<LoadingAgent />: (<AgentsList open={open}   agents={agents.data}/>)}
         </div>
         {!loading &&  <Paging agents={agents.data} page={page} setPage={setPage} totalPage={totalPage}/>}

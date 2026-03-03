@@ -19,6 +19,7 @@ const Home = () => {
             if(data.error){
                  navigate("/login")
             }
+            else navigate("/meeting")
             setUser(data);
         }
         userData()
@@ -26,19 +27,18 @@ const Home = () => {
 
     if(!user){
         navigate("/login")
-        
     }
-
 
     return (
         <SidebarProvider>
 
-            <DashBoard user={user} />{/* this comes to the side  */}
+            <DashBoard user={user} />
+            {/* this comes to the side  */}
 
-            <main className="w-full">
+            <main className="w-full bg-gray-100">
 
                 <SidebarTrigger />
-                <Navbar />
+                {/* <Navbar /> */}
                 <Outlet />
 
             </main>

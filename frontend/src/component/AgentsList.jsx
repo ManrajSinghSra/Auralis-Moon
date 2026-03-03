@@ -10,7 +10,7 @@ const AgentsList = ({agents}) => {
   return (<> 
      {agents ? agents.map((curr)=>{
         return(
-        <div className="bg-blue-200 m-2 p-5 rounded-2xl flex justify-between">
+        <div className="bg-blue-200 m-2 p-5  flex justify-between">
             <div className="flex gap-4">
                  <GenerateAvatar seed={curr.name} variant="botttsNeutral" className="h-20 w-20"/>
              <div className="flex flex-col">
