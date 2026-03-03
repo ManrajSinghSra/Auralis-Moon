@@ -61,7 +61,7 @@ export const Room = () => {
       const fetchedToken = data.token; 
 
 
-      if (!fetchedToken) return;
+      if (!fetchedToken) retur
 
       //where we make a clint and join 
 

@@ -35,6 +35,7 @@ const Login = () => {
             credentials:"include",
             body:JSON.stringify(user)
         })
+        
         const data=await res.json()
         if(res.status==200){
             console.log("data",data.data);
