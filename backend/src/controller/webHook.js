@@ -8,9 +8,11 @@ const activeSessions = {};
 const webhook = async (req, res) => {
   try {
     const signature = req.headers["x-signature"];
+
     if (!signature) return res.status(400).json({ error: "Missing signature" });
 
     const rawBody = req.body.toString("utf8");
+
     serverClient.verifyWebhook(rawBody, signature);
 
     const payload = JSON.parse(rawBody);
@@ -20,10 +22,12 @@ const webhook = async (req, res) => {
 
     const meetingId = payload.call?.custom?.meetingId;
     const agentId = payload.call?.custom?.agentId;
+    const user=payload.call?.custom?.user;
     if (!meetingId) return;
+ 
 
-    // ─── SESSION START ───────────────────────────────────────────
     if (payload.type === "call.session_started") {
+
       setImmediate(async () => {
         try {
           if (!agentId) return console.error("Missing agentId");
@@ -42,8 +46,7 @@ const webhook = async (req, res) => {
             openAiApiKey: OPENAI_API_KEY,
             agentUserId: agentId,
           });
-
-          // Store both realtimeClient AND agentId so we can identify who is the bot
+ 
           activeSessions[meetingId] = { realtimeClient, agentId };
 
           await realtimeClient.updateSession({
@@ -52,9 +55,10 @@ const webhook = async (req, res) => {
             turn_detection: { type: "server_vad" },
             input_audio_transcription: { model: "whisper-1" },
           });
-
+ 
+        
           await realtimeClient.sendUserMessageContent([
-            { type: "input_text", text: `Please greet the participants and introduce yourself. Your name is ${agent.name}` }
+            { type: "input_text", text: `Please greet the user name is ${user.name} and introduce yourself. Your name is ${agent.name}. Please do not change the topic if the users ask question irrelevant from the instruction. Try to tell the user that we are here only for the topic in the instruction.` }
           ]);
 
           realtimeClient.on("error", (err) => console.error("RealtimeClient error:", err));
@@ -64,11 +68,7 @@ const webhook = async (req, res) => {
           console.error("Async AI error:", err);
         }
       });
-    }
-
-    // ─── PARTICIPANT LEFT ────────────────────────────────────────
-    // Since it's always 1 user + 1 agent:
-    // If the one who left is NOT the agent → it's the user → disconnect agent
+    } 
     if (payload.type === "call.session_participant_left") {
       const session = activeSessions[meetingId];
       if (!session) return;
@@ -82,13 +82,12 @@ const webhook = async (req, res) => {
         await disconnectAgent(meetingId);
       }
     }
-
-    // ─── FALLBACK: entire call ended ────────────────────────────
     if (payload.type === "call.session_ended") {
       await disconnectAgent(meetingId);
     }
 
   } catch (error) {
+
     console.error("Webhook error:", error);
     if (!res.headersSent) {
       res.status(500).json({ error: "Webhook failed" });

@@ -31,7 +31,8 @@ const tokenGenerator=async(req, res) => {
     await call.update({
     custom: {
       meetingId: callId,
-      agentId
+      agentId,
+      user
     }
   });  
   const token = serverClient.createToken(userId);
