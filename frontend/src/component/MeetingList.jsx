@@ -1,5 +1,5 @@
 import { Button, GenerateAvatar } from '@/imports/MeetingDialog'
-import { CornerDownRight } from 'lucide-react'; 
+import { ClockArrowUp, CornerDownRight } from 'lucide-react'; 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setMeetingId, setMeetingName } from '@/store/slices/meetingName';  
@@ -14,15 +14,18 @@ const MeetingList = ({meeting}) => {
     <div className='mt-10 bg-blue-500 pt-2 h-150'> 
 
       {meeting.length!=0 ? 
-      meeting.map((curr)=>{  
-        
+      meeting.map((curr)=>{   
+
+        const date=new Date(curr?.createdAt);
+ 
+        const formatDate=date?.toDateString();
+ 
         const agentName=curr?.agentId;
         const agent=(agentName?.name);
  
-         
         return(<>
-                <div key={curr.title} className="bg-blue-300 m-2 p-5  flex justify-between">
-                   <div>
+                <div key={curr.title} className="bg-blue-300 m-2 px-10 p-5  flex justify-between">
+                   <div className='flex-1'>
                      <h1 className='text-3xl font-extrabold' onClick={()=>{                      
                       dispatch(setAgentName(agent))
                       dispatch(setAgentId(agentName._id))
@@ -32,14 +35,24 @@ const MeetingList = ({meeting}) => {
                       nav("/meeting/meetingRoom")}
                       }>{curr.title}</h1>
 
-                     <div className='flex'> 
+                     <div className='flex gap-4'> 
                       <CornerDownRight />
+                      <h1>{agentName?.name} Coach</h1>
                       <GenerateAvatar seed={agent} variant="botttsNeutral"/>
+                      <h1>{formatDate}</h1>
                      </div>
+
                    </div>
-                    <Button>{curr.status}</Button>
+
+                   <div className='w-40 flex-1 pt-4'>
+                     <Button className="bg-green-900"><ClockArrowUp/> {curr.status}</Button>
+                   </div>
+
+                    <div>
+                      Time
+                    </div>
+
                 </div>
-               
                 </>
 
                 )
