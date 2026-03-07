@@ -16,10 +16,7 @@ export function MeetingStatusDropDown() {
 
       <DropdownMenuTrigger asChild>
         <Button variant="outline">Status <ChevronDown /></Button>
-      </DropdownMenuTrigger>
-         {/* <DropdownMenuLabel>Status </DropdownMenuLabel> */}
-      
-
+      </DropdownMenuTrigger> 
       <DropdownMenuContent>
         <DropdownMenuItem>
           Upcoming

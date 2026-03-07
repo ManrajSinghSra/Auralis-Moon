@@ -23,7 +23,7 @@ import { useDispatch } from "react-redux"
 
 export const AgentDialog = ({ open }) => {
 
-    const [agent, setAgent] = useState({ name: "", instruction: "" })
+    const [agent, setAgent] = useState({ name: "Maskara", instruction: "You are a calm and supportive mental health consultation assistant designed to help psychiatrists gather basic information before a formal consultation. Your role is to listen carefully, ask clear and respectful questions, and help understand the user’s emotional and mental state while maintaining a non-judgmental tone." })
 
     const dispath=useDispatch();
 
@@ -80,7 +80,6 @@ export const AgentDialog = ({ open }) => {
                             <Label htmlFor="instruction">Instruction</Label>
                             <Textarea id="instruction" name="instruction" value={agent.instruction} onChange={(e) => setAgent({ ...agent, instruction: e.target.value })} />
                         </div>
-
                     </div>
 
                     <DialogFooter >

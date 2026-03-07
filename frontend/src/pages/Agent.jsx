@@ -22,19 +22,17 @@ const Agent = () => {
     const [totalPage,setTotalPage]=useState(0)
     const [page,setPage]=useState(1)
 
+
     useEffect(()=>{
       const getAllAgents=async()=>{
         const res=await fetch(`${URL}/agent/allAgent?page=${page}&limit=${PAGE_SIZE}`,{credentials:"include"});
         const data=await res.json();
         setAgents(data)
-        console.log(data);
-
         setTotalPage(Math.ceil(data.totalCount/PAGE_SIZE))
-        
         setLoading(false);
       }
       getAllAgents()
-    },[page])
+    },[page,open])
     
 
   return (
@@ -48,10 +46,10 @@ const Agent = () => {
         </div>
         <AgentDialog open={open} />
         
-        <div className='mt-10 h-150  bg-blue-300  py-6'> 
-             {loading?<LoadingAgent />: (<AgentsList open={open}   agents={agents.data}/>)}
+        <div className='mt-10 h-150  bg-blue-500  py-6 overflow-auto'> 
+             {loading?<LoadingAgent />: (<AgentsList open={open}   agents={agents.data} setAgents={setAgents}/>)}
         </div>
-        {!loading &&  <Paging agents={agents.data} page={page} setPage={setPage} totalPage={totalPage}/>}
+        { (!loading && agents.data.length!=0) &&  <Paging agents={agents.data} page={page} setPage={setPage} totalPage={totalPage}/>}
 
     </div>
   )

@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { URL } from '@/CONST'
 import { Plus} from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react' 
 import { Outlet, useMatch, useNavigate } from 'react-router-dom'
 
 const Meeting = () => {
@@ -14,10 +13,8 @@ const Meeting = () => {
   const [open,setOpen]=useState(false);
 
   const [meeting,setMeeting]=useState([]);
-  const match=useMatch("/meeting/meetingRoom");
-  const match2=useMatch("/meeting/meetingRoom/room");
- 
-
+  const match=useMatch("/meeting/meetingRoom"); 
+  
   const nav=useNavigate() 
 
   useEffect(()=>{
@@ -34,7 +31,7 @@ const Meeting = () => {
       }
     }
     fetchData(); 
-  },[])
+  },[open])
   return (
       <div className='mt-3 ml-3'>
         <div className='flex justify-between items-baseline'>

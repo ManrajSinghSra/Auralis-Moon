@@ -47,4 +47,21 @@ const allAgent=async(req,res)=>{
     }
 }
 
-module.exports={addAgent,allAgent}
+const deleteAgent=async(req,res)=>{
+   try {
+     const agent=req.body;
+ 
+     const isExists=await Agent.findById(agent.currId);
+     if(agent.currId==isExists._id){
+        await Agent.findByIdAndDelete(agent.currId);
+     }
+    res.json({success:true});
+    
+   } catch (error) {
+    console.log(error);
+    
+   }
+} 
+
+
+module.exports={addAgent,allAgent,deleteAgent}
