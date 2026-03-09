@@ -54,7 +54,7 @@ const DashBoard = ({user}) => {
                                     <SidebarMenuButton asChild>
                                         <Link to={item.url}>
                                             <item.icon />
-                                            <span className="text-[1.4rem] font-medium">{item.title}</span>
+                                            <span className="text-[1.3rem] font-medium">{item.title}</span>
                                         </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>

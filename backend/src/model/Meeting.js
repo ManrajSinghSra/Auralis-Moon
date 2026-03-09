@@ -6,12 +6,12 @@ const meetingSchema=mongoose.Schema({
     },
     userId:{
         type:mongoose.Schema.Types.ObjectId,
-        require:true,
+        required:true,
         ref:"User"
     },
     agentId:{
         type:mongoose.Schema.Types.ObjectId,
-        require:true,
+        required:true,
         ref:"Agent"
     },
     status:{
@@ -19,7 +19,6 @@ const meetingSchema=mongoose.Schema({
         default:"upcoming",
         enum:["upcoming","active","completed","processing","cancelled"]
     },
-
     summary:      { type:Date },
     transcriptUrl:{ type:Date },
     recordingUrl: { type:Date },
@@ -28,5 +27,7 @@ const meetingSchema=mongoose.Schema({
 },{timestamps:true})
 
 const Meeting=mongoose.model("meeting",meetingSchema);
+
+
 
 module.exports={Meeting};

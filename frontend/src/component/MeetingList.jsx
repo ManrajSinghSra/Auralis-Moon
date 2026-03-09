@@ -1,11 +1,34 @@
 import { Button, GenerateAvatar } from '@/imports/MeetingDialog'
-import { ClockArrowUp, CornerDownRight } from 'lucide-react'; 
+import { CalendarClock, CheckCircle, ClockArrowUp, CornerDownRight, Loader, Mic } from 'lucide-react'; 
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setMeetingId, setMeetingName } from '@/store/slices/meetingName';  
 import { setAgentId, setAgentName } from '@/store/slices/agentName';
  
 const MeetingList = ({meeting}) => {
+
+  const statusColor = {
+  upcoming: {color:"bg-green-900",icon: CalendarClock},
+  active: {color:"bg-blue-900", icon: Mic},
+  processing: {color:"bg-blue-950",   icon: Loader},
+  completed: {color:"bg-green-950",icon: CheckCircle}
+};
+   
+  const IconDisplay=({status})=>{
+
+     const config = statusColor[status]; 
+      const Icon = config.icon;
+      const color=config.color;
+ 
+
+    return <>
+      <div className='w-40 flex-1 pt-4'>
+            <Button className={`${color} text-1xl font-extrabold` }><Icon className={status==="processing" ? "animate-spin":""} /> {status}  </Button>
+           
+      </div>
+    </>
+  }
+
 
   const nav=useNavigate();
  
@@ -23,8 +46,9 @@ const MeetingList = ({meeting}) => {
         const agentName=curr?.agentId;
         const agent=(agentName?.name);
  
-        return(<>
-                <div key={curr.title} className="bg-blue-300 m-2 px-10 p-5  flex justify-between">
+        return(
+        <div key={curr.title}>
+                <div  className="bg-blue-300 m-2 px-10 p-5  flex justify-between">
                    <div className='flex-1'>
                      <h1 className='text-3xl font-extrabold' onClick={()=>{                      
                       dispatch(setAgentName(agent))
@@ -43,17 +67,14 @@ const MeetingList = ({meeting}) => {
                      </div>
 
                    </div>
-
-                   <div className='w-40 flex-1 pt-4'>
-                     <Button className="bg-green-900"><ClockArrowUp/> {curr.status}</Button>
-                   </div>
+                   <IconDisplay status={curr.status} />
 
                     <div>
                       Time
                     </div>
 
                 </div>
-                </>
+                </div>
 
                 )
       }):

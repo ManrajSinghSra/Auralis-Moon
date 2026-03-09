@@ -1,4 +1,5 @@
-const mongoose=require("mongoose")
+const mongoose=require("mongoose");
+const { Meeting } = require("./Meeting");
 
 const agentSchema=mongoose.Schema({
     name:{
@@ -14,11 +15,20 @@ const agentSchema=mongoose.Schema({
     userId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
-        require:true
+        required:true
     }
 
 },{timestamps:true})
 
+agentSchema.pre("findOneAndDelete",async function(){
+
+    const agent=await this.model.findOne(this.getFilter());
+    if(agent){
+        await Meeting.deleteMany({agentId:agent._id});
+    } 
+})
+
 const Agent=mongoose.model("Agent",agentSchema);
+
 
 module.exports={Agent};

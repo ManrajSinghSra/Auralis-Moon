@@ -61,10 +61,8 @@ export const Room = () => {
       const fetchedToken = data.token; 
 
 
-      if (!fetchedToken) retur
-
-      //where we make a clint and join 
-
+      if (!fetchedToken) return
+ 
       const newClient = new StreamVideoClient({
         apiKey,
         user: { 
@@ -93,10 +91,11 @@ export const Room = () => {
   if (!client || !call) return null;
 
   return (
+  <div className="bg-gray-900 h-screen">
     <StreamVideo client={client}>
       <StreamCall call={call}>
  
-          <StreamTheme classID="bg-gray-900">
+          <StreamTheme>
                 <CallWatcher nav={nav} />
                 <SpeakerLayout />
                 <CallControls />
@@ -105,5 +104,6 @@ export const Room = () => {
         
       </StreamCall>
     </StreamVideo>
+    </div>
   );
 };

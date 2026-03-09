@@ -36,13 +36,10 @@ const Login = () => {
         })
         
         const data=await res.json()
-        if(res.status==200){
-            console.log("data",data.data);
+        if(res.status==200){ 
             
             dispatch(addUser(data.data._id))
-
-            console.log(data.data.name);
-            
+  
             dispatch(setName(data.data.name))
 
                navigate("/")

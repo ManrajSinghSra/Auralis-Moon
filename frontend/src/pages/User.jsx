@@ -19,8 +19,7 @@ const User = ({user}) => {
     const data=user?.data
     const navigate=useNavigate()
 
-    const handleLogout=async()=>{
-        console.log("here");
+    const handleLogout=async()=>{ 
         
         const res=await fetch(`${URL}/user/logout`,{credentials:"include"});
         const data=await res.json()

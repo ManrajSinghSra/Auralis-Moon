@@ -1,6 +1,7 @@
 const { streamApiKey, streamSecret, OPENAI_API_KEY } = require("../../Secret");
 const { StreamClient } = require("@stream-io/node-sdk");
 const { Agent } = require("../model/Agent");
+const { Meeting } = require("../model/Meeting");
 
 const serverClient = new StreamClient(streamApiKey, streamSecret);
 const activeSessions = {};
@@ -15,14 +16,14 @@ const webhook = async (req, res) => {
 
     serverClient.verifyWebhook(rawBody, signature);
 
-    const payload = JSON.parse(rawBody);
-    console.log("Webhook event:", payload.type);
+    const payload = JSON.parse(rawBody); 
 
     res.status(200).json({ status: "ok" });
 
     const meetingId = payload.call?.custom?.meetingId;
     const agentId = payload.call?.custom?.agentId;
     const user=payload.call?.custom?.user;
+
     if (!meetingId) return;
  
 
@@ -30,6 +31,10 @@ const webhook = async (req, res) => {
 
       setImmediate(async () => {
         try {
+          const meetingRes=await Meeting.findOneAndUpdate({_id:meetingId},{status:"active"}, { new: true, runValidators: true })
+
+          console.log(meetingRes);
+          
           if (!agentId) return console.error("Missing agentId");
 
           const agent = await Agent.findById(agentId);
@@ -70,20 +75,20 @@ const webhook = async (req, res) => {
       });
     } 
     if (payload.type === "call.session_participant_left") {
-      const session = activeSessions[meetingId];
-      if (!session) return;
+       const meetingRes=await Meeting.findOneAndUpdate({_id:meetingId},{status:"processing"}, { new: true, runValidators: true })
+       const session = activeSessions[meetingId];
+       if (!session) return;
 
-      const whoLeft = payload.participant?.user_id;
-      console.log("Participant left:", whoLeft, "| Agent is:", session.agentId);
-
-      // The human user left → kill the agent
-      if (whoLeft !== session.agentId) {
-        console.log("User left — disconnecting agent...");
+       const whoLeft = payload.participant?.user_id; 
+ 
+      if (whoLeft !== session.agentId) { 
         await disconnectAgent(meetingId);
       }
     }
     if (payload.type === "call.session_ended") {
+
       await disconnectAgent(meetingId);
+      const meetingRes=await Meeting.findOneAndUpdate({_id:meetingId},{status:"processing"}, { new: true, runValidators: true })
     }
 
   } catch (error) {

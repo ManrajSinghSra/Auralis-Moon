@@ -100,13 +100,13 @@ export function MeetingDialog({ open, setOpen }) {
                   <SelectGroup  >
                     <SelectLabel>Select an Agent</SelectLabel> 
                     {agents && agents.map((curr)=>{    
-                     return (<>
+                     return (<div key={curr._id}>
                       <div className="flex justify-between gap-4 my-4">
                          <GenerateAvatar seed={curr.name} variant="botttsNeutral" />
                          <SelectItem value={curr._id}>{curr.name}</SelectItem> 
                       </div>
                      
-                      </>)
+                      </div>)
                     })}
                   </SelectGroup>
                 </SelectContent>
