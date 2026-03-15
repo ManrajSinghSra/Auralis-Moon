@@ -20,8 +20,9 @@ const meetingSchema=mongoose.Schema({
         enum:["upcoming","active","completed","processing","cancelled"]
     },
     summary:      { type:Date },
-    transcriptUrl:{ type:Date },
-    recordingUrl: { type:Date },
+    transcriptUrl:{ type:String },
+    recordingUrl: { type:String },
+    
     
 
 },{timestamps:true})

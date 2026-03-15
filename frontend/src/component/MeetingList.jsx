@@ -24,7 +24,7 @@ const MeetingList = ({meeting}) => {
     return <>
       <div className='w-40 flex-1 pt-4'>
             <Button className={`${color} text-1xl font-extrabold` }><Icon className={status==="processing" ? "animate-spin":""} /> {status}  </Button>
-           
+
       </div>
     </>
   }
