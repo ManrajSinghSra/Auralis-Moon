@@ -1,4 +1,4 @@
-const { streamApiKey, streamSecret, OPENAI_API_KEY } = require("../../Secret");
+const { streamApiKey, streamSecret, OPENAI_API_KEY } = require("../Secret");
 const { StreamClient } = require("@stream-io/node-sdk");
 const { Agent } = require("../model/Agent");
 const { Meeting } = require("../model/Meeting");

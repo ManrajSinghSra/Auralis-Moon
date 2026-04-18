@@ -37,7 +37,7 @@ const getMeeting=async(req,res)=>{
   }
 }
 
-const meetingDetail=async()=>{
+const meetingDetail=async(req,res)=>{
 
   try {
     const user=req.user;
@@ -47,7 +47,6 @@ const meetingDetail=async()=>{
     
   } catch (error) {
      res.json({error:error.message || "Something went wrong"});
-    
   }
 }
 

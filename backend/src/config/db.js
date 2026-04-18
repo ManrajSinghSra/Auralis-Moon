@@ -1,5 +1,5 @@
 const mongoose=require("mongoose");
-const { URL } = require("../../Secret");
+const { URL } = require("../Secret");
 
 const  connectDB=async()=>{
     try {
