@@ -33,8 +33,22 @@ const getMeeting=async(req,res)=>{
     const data=await Meeting.find({userId:user._id}).populate("agentId")
     return res.json({data});
   } catch (error) {
-    res.json({error:error.message || "Something went wrong"});
+    return res.json({error:error.message || "Something went wrong"});
   }
 }
 
-module.exports={addMeeting,getMeeting}
+const meetingDetail=async()=>{
+
+  try {
+    const user=req.user;
+    const {meetId}=req.body;
+    const data=await Meeting.findOne({userId:user._id,_id:meetId});
+    return res.json({data});
+    
+  } catch (error) {
+     res.json({error:error.message || "Something went wrong"});
+    
+  }
+}
+
+module.exports={addMeeting,getMeeting,meetingDetail}
