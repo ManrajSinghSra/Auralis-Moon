@@ -29,8 +29,8 @@ app.use("/meeting",meetingRouter)
 
 app.use("/stream",streamRouter)
 
-app.use("/api/inngest",serve({client:inngest,functions:[meetingProcessing]}))
 
+app.use("/api/inngest",serve({client:inngest,functions:[meetingProcessing]}))
 app.use("/test",inngestRouter);
 
 module.exports={app}
